@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/session";
 import { prisma } from "@/lib/prisma";
@@ -90,7 +91,12 @@ export default async function DashboardPage() {
                 </p>
                 <p className="text-sm text-green-800">{item.description}</p>
               </div>
-
+<Link
+  href={`/dashboard/edit/${item.id}`}
+  className="rounded-full border border-green-600 px-4 py-1 text-sm font-semibold text-green-700 hover:bg-green-50"
+>
+  Edit
+</Link>
               <div className="flex gap-2">
                 <form action={toggleAvailable.bind(null, item.id, !item.available)}>
                   <button className="rounded-full border border-green-600 px-4 py-1 text-sm font-semibold text-green-700 hover:bg-green-50">
