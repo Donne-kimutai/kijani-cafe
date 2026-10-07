@@ -24,3 +24,10 @@ model MenuItem {
   available   Boolean  @default(true)
   createdAt   DateTime @default(now())
 }
+
+model Admin {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
