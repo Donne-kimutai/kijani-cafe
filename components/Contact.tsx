@@ -26,7 +26,7 @@ export default function Contact() {
               <p className="mt-2 text-green-800">
                 Kijani Café
                 <br />
-                123 Garden Road
+                Kitisuru, Nairobi.
                 <br />
                 Nairobi, Kenya
               </p>

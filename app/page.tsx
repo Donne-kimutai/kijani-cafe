@@ -9,6 +9,8 @@ export default function Home() {
       <Hero />
       <About />
       <Menu/>
+      <Contact />
+      <Footer />
     </main>
   );
 }
