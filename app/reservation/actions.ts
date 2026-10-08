@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
+import { getHoursForDate, lastBookingTime, formatTime } from "@/lib/hours";
 
 export type ReservationState = { error?: string; success?: boolean } | undefined;
 
@@ -33,7 +34,7 @@ export async function createReservation(
     error: "Enter a valid Kenyan number: 9 digits starting with 7 or 1.",
   };
   }
-  
+
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
     return { error: "Please choose a date." };
   }
@@ -45,9 +46,17 @@ export async function createReservation(
     return { error: "Please choose today or a future date." };
   }
 
-  if (!/^\d{2}:\d{2}$/.test(time) || time < "07:00" || time > "19:00") {
-    return { error: "Please choose a time between 7:00 AM and 7:00 PM." };
-  }
+  const hours = getHoursForDate(date);
+if (!hours) {
+  return { error: "Please choose a valid date." };
+}
+
+const last = lastBookingTime(hours.close);
+if (!/^\d{2}:\d{2}$/.test(time) || time < hours.open || time > last) {
+  return {
+    error: `Bookings on that day are between ${formatTime(hours.open)} and ${formatTime(last)}.`,
+  };
+}
   if (!Number.isInteger(guests) || guests < 1 || guests > 20) {
     return { error: "Guests must be between 1 and 20." };
   }

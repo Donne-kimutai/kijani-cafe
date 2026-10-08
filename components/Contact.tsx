@@ -1,10 +1,5 @@
 import Reveal from "./Reveal";
-
-const hours = [
-  { days: "Monday - Friday", time: "7:00 AM - 8:00 PM" },
-  { days: "Saturday", time: "8:00 AM - 9:00 PM" },
-  { days: "Sunday", time: "8:00 AM - 8:00 PM" },
-];
+import { SCHEDULE, formatTime } from "@/lib/hours";
 
 export default function Contact() {
   return (
@@ -37,11 +32,12 @@ export default function Contact() {
             <div className="h-full rounded-2xl bg-green-50 p-6">
               <h3 className="text-xl font-semibold text-green-900">Hours</h3>
               <ul className="mt-2 space-y-1 text-green-800">
-                {hours.map((h) => (
-                  <li key={h.days}>
-                    <span className="font-medium">{h.days}:</span> {h.time}
-                  </li>
-                ))}
+                  {SCHEDULE.map((s) => (
+                    <li key={s.label}>
+                     <span className="font-medium">{s.label}:</span>{" "}
+                      {formatTime(s.open)} - {formatTime(s.close)}
+                    </li>
+                    ))}
               </ul>
             </div>
           </Reveal>

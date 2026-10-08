@@ -3,16 +3,21 @@
 import { useActionState, useEffect, useRef, useState} from "react";
 import Reveal from "./Reveal";
 import { createReservation } from "@/app/reservation/actions";
+import { getHoursForDate, lastBookingTime, formatTime } from "@/lib/hours";
 
 export default function Reservation() {
   const [state, action, pending] = useActionState(createReservation, undefined);
   const formRef = useRef<HTMLFormElement>(null);
   const [phone, setPhone] = useState("");
+  const [date, setDate] = useState("");
+  const hours = date ? getHoursForDate(date) : null;
+  const last = hours ? lastBookingTime(hours.close) : undefined;
 
   useEffect(() => {
   if (state?.success) {
     formRef.current?.reset();
-    setPhone("");
+    setPhone(""); 
+    setDate("");                                    
   }
 }, [state]);
 
@@ -79,16 +84,34 @@ export default function Reservation() {
           </label>
 
           <label className={labelClass}>
-            Time
-            <input
-              name="time"
-              type="time"
-              min="07:00"
-              max="19:00"
-              required
-              className={inputClass}
-            />
-          </label>
+  Date
+  <input
+    name="date"
+    type="date"
+    value={date}
+    onChange={(e) => setDate(e.target.value)}
+    required
+    className={inputClass}
+  />
+</label>
+
+      <label className={labelClass}>
+      Time
+      <input
+       name="time"
+       type="time"
+       min={hours?.open}
+       max={last}
+       disabled={!hours}
+       required
+       className={`${inputClass} disabled:opacity-50`}
+       />
+      <span className="mt-1 block text-xs font-normal text-green-700">
+      {hours && last
+         ? `Bookings that day: ${formatTime(hours.open)} - ${formatTime(last)}`
+        : "Choose a date first"}
+      </span>
+    </label>
 
           <label className={`${labelClass} md:col-span-2`}>
             Number of guests

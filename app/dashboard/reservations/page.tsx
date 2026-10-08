@@ -19,11 +19,24 @@ function fmtDate(d: string) {
     timeZone: "UTC",
   });
 }
+function whatsappLink(r: Reservation) {
+  const when = `${fmtDate(r.date)} at ${fmtTime(r.time)}`;
+  const guests = `${r.guests} ${r.guests === 1 ? "guest" : "guests"}`;
+
+  const text =
+    r.status === "confirmed"
+      ? `Hello ${r.name}, this is Kijani Café. Your table for ${guests} on ${when} is confirmed. We look forward to seeing you!`
+      : r.status === "cancelled"
+      ? `Hello ${r.name}, this is Kijani Café. Unfortunately we had to cancel your booking for ${when}. Please reach out and we will gladly find another time.`
+      : `Hello ${r.name}, this is Kijani Café. We received your request for ${guests} on ${when}. Reply here if you need to change anything.`;
+
+  return `https://wa.me/${r.phone.replace("+", "")}?text=${encodeURIComponent(text)}`;
+}
 
 const badge: Record<string, string> = {
   pending: "bg-yellow-100 text-yellow-800",
   confirmed: "bg-green-100 text-green-800",
-  cancelled: "bg-red-100 text-red-700",
+  cancelled: "b,-red-100 text-red-700",
 };
 
 function Row({ r }: { r: Reservation }) {
@@ -40,7 +53,7 @@ function Row({ r }: { r: Reservation }) {
           </a>{" "}
           ·{" "}
           <a
-            href={`https://wa.me/${r.phone.replace("+", "")}`}
+           href={whatsappLink(r)}
             target="_blank"
             rel="noopener noreferrer"
             className="underline"
