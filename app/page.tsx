@@ -1,4 +1,6 @@
 export const dynamic = "force-dynamic";
+
+import ChatWidget from "@/components/ChatWidget";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Menu from "@/components/Menu";
@@ -14,6 +16,7 @@ export default function Home() {
       <Reservation />
       <Contact />
       <Footer />
+      <ChatWidget />
     </main>
   );
 }
