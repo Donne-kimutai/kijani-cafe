@@ -33,6 +33,18 @@ export default async function DashboardPage() {
         </form>
       </div>
 
+      <nav className="mt-6 flex gap-3">
+  <span className="rounded-full bg-green-700 px-5 py-2 text-sm font-semibold text-white">
+    Menu
+  </span>
+  <Link
+    href="/dashboard/reservations"
+    className="rounded-full border-2 border-green-700 px-5 py-2 text-sm font-semibold text-green-700 hover:bg-green-100"
+  >
+    Reservations
+  </Link>
+</nav>
+
       {/* Add item */}
       <section className="mt-10 rounded-2xl bg-green-50 p-6">
         <h2 className="text-xl font-semibold text-green-900">Add menu item</h2>

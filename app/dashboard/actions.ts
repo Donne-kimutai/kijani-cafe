@@ -63,3 +63,12 @@ export async function updateMenuItem(id: number, formData: FormData) {
   refresh();
   redirect("/dashboard");
 }
+
+export async function setReservationStatus(id: number, status: string) {
+  await requireAdmin();
+
+  if (!["pending", "confirmed", "cancelled"].includes(status)) return;
+
+  await prisma.reservation.update({ where: { id }, data: { status } });
+  revalidatePath("/dashboard/reservations");
+}
