@@ -31,3 +31,14 @@ model Admin {
   passwordHash String
   createdAt    DateTime @default(now())
 }
+
+model Reservation {
+  id        Int      @id @default(autoincrement())
+  name      String
+  phone     String
+  date      String
+  time      String
+  guests    Int
+  status    String   @default("pending")
+  createdAt DateTime @default(now())
+}

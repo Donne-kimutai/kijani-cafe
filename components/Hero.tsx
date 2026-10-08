@@ -79,7 +79,7 @@ export default function Hero() {
             View Menu
           </a>
           <a
-            href="/#contact"
+            href="/#reserve"
             className="rounded-full border-2 border-green-700 px-8 py-3 font-semibold text-green-700 transition hover:scale-105 hover:bg-green-100"
           >
             Book a Table
