@@ -2,7 +2,7 @@
 
 import { useActionState, useEffect, useRef, useState} from "react";
 import Reveal from "./Reveal";
-import { createReservation } from "@/app/reservation/actions";
+import { createReservation } from "@/app/reservations/actions";
 import { getHoursForDate, lastBookingTime, formatTime } from "@/lib/hours";
 
 export default function Reservation() {
