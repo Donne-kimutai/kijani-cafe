@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 type Item = {
   id: number;
@@ -8,6 +9,7 @@ type Item = {
   description: string;
   price: number;
   category: string;
+  image: string | null;
   available: boolean;
 };
 
@@ -44,11 +46,23 @@ export default function MenuList({ items }: { items: Item[] }) {
           {visibleItems.map((item) => (
             <div
               key={item.id}
-              className={`flex items-start justify-between gap-4 rounded-2xl bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg ${
+              className={`flex items-start gap-4 rounded-2xl bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg ${
                 item.available ? "" : "opacity-50"
               }`}
             >
-              <div>
+              {item.image && (
+                <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl">
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    fill
+                    sizes="96px"
+                    className="object-cover"
+                  />
+                </div>
+              )}
+
+              <div className="flex-1">
                 <h3 className="text-xl font-semibold text-green-900">{item.name}</h3>
                 <p className="mt-1 text-green-800">{item.description}</p>
                 {!item.available && (
@@ -57,6 +71,7 @@ export default function MenuList({ items }: { items: Item[] }) {
                   </span>
                 )}
               </div>
+
               <p className="whitespace-nowrap text-lg font-bold text-green-700">
                 KSh {item.price}
               </p>

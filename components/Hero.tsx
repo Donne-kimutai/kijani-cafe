@@ -1,6 +1,8 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
+import { PHOTOS } from "@/lib/photos";
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -21,7 +23,7 @@ export default function Hero() {
     <section
       ref={ref}
       onMouseMove={handleMove}
-      className="relative flex min-h-[80vh] items-center justify-center overflow-hidden bg-gradient-to-b from-green-100 to-green-50 px-6"
+      className="relative flex min-h-[85vh] items-center overflow-hidden bg-gradient-to-b from-green-100 to-green-50 px-6 py-16"
     >
       {/* Glow that follows the cursor */}
       <div
@@ -32,58 +34,100 @@ export default function Hero() {
         }}
       />
 
-      {/* Floating shapes that drift with the mouse */}
+      {/* Soft shapes that drift with the mouse */}
       <div
-        className="pointer-events-none absolute left-[10%] top-[15%] h-40 w-40 rounded-full bg-green-300/40 blur-2xl transition-transform duration-300 ease-out"
+        className="pointer-events-none absolute left-[5%] top-[10%] h-40 w-40 rounded-full bg-green-300/40 blur-2xl transition-transform duration-300 ease-out"
         style={{
-          transform:
-            "translate(calc(var(--px, 0) * 40px), calc(var(--py, 0) * 40px))",
+          transform: "translate(calc(var(--px, 0) * 40px), calc(var(--py, 0) * 40px))",
         }}
       />
       <div
-        className="pointer-events-none absolute bottom-[10%] right-[10%] h-56 w-56 rounded-full bg-emerald-300/40 blur-2xl transition-transform duration-300 ease-out"
+        className="pointer-events-none absolute bottom-[5%] right-[5%] h-56 w-56 rounded-full bg-emerald-300/40 blur-2xl transition-transform duration-300 ease-out"
         style={{
-          transform:
-            "translate(calc(var(--px, 0) * -60px), calc(var(--py, 0) * -60px))",
+          transform: "translate(calc(var(--px, 0) * -60px), calc(var(--py, 0) * -60px))",
         }}
       />
 
-      {/* Content */}
-      <div className="relative z-10 max-w-2xl text-center">
-        <p
-          className="fade-up mb-3 text-sm font-semibold uppercase tracking-widest text-green-600"
-          style={{ animationDelay: "0.1s" }}
-        >
-          Welcome to
-        </p>
-        <h1
-          className="fade-up text-5xl font-bold text-green-900 md:text-8xl"
-          style={{ animationDelay: "0.3s" }}
-        >
-          Kijani Café
-        </h1>
-        <p
-          className="fade-up mt-5 text-4xl text-green-800"
+      <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-12 md:grid-cols-2">
+        {/* Text */}
+        <div className="text-center md:text-left">
+          <p
+            className="fade-up mb-3 text-sm font-semibold uppercase tracking-widest text-green-600"
+            style={{ animationDelay: "0.1s" }}
+          >
+            Welcome to
+          </p>
+          <h1
+            className="fade-up text-5xl font-bold text-green-900 md:text-6xl"
+            style={{ animationDelay: "0.3s" }}
+          >
+            Kijani Café
+          </h1>
+          <p
+            className="fade-up mt-5 text-lg text-green-800"
+            style={{ animationDelay: "0.5s" }}
+          >
+            Fresh coffee, local ingredients and a calm place to meet. Come
+            hungry, leave happy.
+          </p>
+          <div
+            className="fade-up mt-8 flex flex-col justify-center gap-4 sm:flex-row md:justify-start"
+            style={{ animationDelay: "0.7s" }}
+          >
+            <a
+              href="/#menu"
+              className="rounded-full bg-green-700 px-8 py-3 text-center font-semibold text-white transition hover:scale-105 hover:bg-green-800"
+            >
+              View Menu
+            </a>
+            <a
+              href="/#reserve"
+              className="rounded-full border-2 border-green-700 px-8 py-3 text-center font-semibold text-green-700 transition hover:scale-105 hover:bg-green-100"
+            >
+              Book a Table
+            </a>
+          </div>
+        </div>
+
+        {/* Photo collage */}
+        <div
+          className="fade-up relative mx-auto h-80 w-full max-w-md md:h-[32rem]"
           style={{ animationDelay: "0.5s" }}
         >
-          Freshly brewed coffee, Delicious bites & Good vibes.
-        </p>
-        <div
-          className="fade-up mt-8 flex flex-col justify-center gap-4 sm:flex-row"
-          style={{ animationDelay: "0.7s" }}
-        >
-          <a
-            href="/#menu"
-            className="rounded-full bg-green-700 px-8 py-3 font-semibold text-white transition hover:scale-105 hover:bg-green-800"
+          <div
+            className="absolute right-0 top-0 h-[85%] w-[70%] transition-transform duration-300 ease-out"
+            style={{
+              transform: "translate(calc(var(--px, 0) * -14px), calc(var(--py, 0) * -14px))",
+            }}
           >
-            View Menu
-          </a>
-          <a
-            href="/#reserve"
-            className="rounded-full border-2 border-green-700 px-8 py-3 font-semibold text-green-700 transition hover:scale-105 hover:bg-green-100"
+            <div className="relative h-full w-full overflow-hidden rounded-3xl shadow-2xl">
+              <Image
+                src={PHOTOS.heroMain.src}
+                alt={PHOTOS.heroMain.alt}
+                fill
+                priority
+                sizes="(min-width: 768px) 30vw, 60vw"
+                className="object-cover"
+              />
+            </div>
+          </div>
+
+          <div
+            className="absolute bottom-0 left-0 h-[50%] w-[50%] transition-transform duration-300 ease-out"
+            style={{
+              transform: "translate(calc(var(--px, 0) * 18px), calc(var(--py, 0) * 18px))",
+            }}
           >
-            Book a Table
-          </a>
+            <div className="relative h-full w-full overflow-hidden rounded-3xl border-4 border-white shadow-xl">
+              <Image
+                src={PHOTOS.heroSmall.src}
+                alt={PHOTOS.heroSmall.alt}
+                fill
+                sizes="(min-width: 768px) 20vw, 40vw"
+                className="object-cover"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>
